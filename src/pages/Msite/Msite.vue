@@ -2,7 +2,7 @@
   <div>
     <section class="msite">
       <!--首页头部-->
-      <Header title="订单列表">
+      <Header :title="address.name || '定位中...'">
         <span class="header_search" slot="left">
           <i class="iconfont icon-sousuo"></i>
         </span>
@@ -127,9 +127,13 @@
 
 <script type="text/ecmascript-6">
 import Shops from 'components/Shops/Shops.vue'
+import {mapState} from 'vuex'
  export default {
   components: {
     Shops
+  },
+  computed: {
+    ...mapState(['address'])
   }
 }
 </script>
