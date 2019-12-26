@@ -42,7 +42,7 @@
                 </section>
                 <section class="login_message">
                   <input type="text" maxlength="11" placeholder="验证码">
-                  <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                  <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="updateCapture" ref="captcha">
                 </section>
               </section>
             </div>
@@ -82,6 +82,12 @@
          }
          this.computeTime--
        },1000)
+     },
+     /**
+      * 更新显示图形验证码
+      */
+     updateCapture () {
+       this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now()
      }
    }
 }
