@@ -134,6 +134,9 @@ import {mapState} from 'vuex'
   },
   computed: {
     ...mapState(['address'])
+  },
+  mounted () {
+    this.$store.dispatch('getShops')
   }
 }
 </script>
