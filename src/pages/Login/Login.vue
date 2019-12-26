@@ -59,6 +59,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {reqSendCode} from '../../api'
  export default {
    data () {
      return {
@@ -74,14 +75,26 @@
      }
    },
    methods: {
-     sendCode () {
+     /**
+      * 发送验证码
+      */
+     async sendCode () {
        this.computeTime = 10
        let timeId = setInterval (()=>{
          if(this.computeTime==0){
            clearInterval(timeId)
+         }else{
+           this.computeTime--
          }
-         this.computeTime--
        },1000)
+      //  发ajax请求 ==》 发送验证码
+      const result = await reqSendCode(this.phone)
+      if (result.code===0) {
+        alert('短信发送成功')
+      }else{
+        clearInterval(timeId)
+        alert(result.msg)
+      }
      },
      /**
       * 更新显示图形验证码

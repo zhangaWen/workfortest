@@ -30,3 +30,13 @@ const BASE = '/api'
     longitude
   }
 })
+/**
+ * 发送短信验证码
+ */
+export const reqSendCode = (phone) => ajax({
+  method: "GET",
+  url: BASE + '/sendcode',
+  params: {
+    phone
+  }
+})
