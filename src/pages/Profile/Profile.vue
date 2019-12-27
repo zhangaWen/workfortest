@@ -3,18 +3,18 @@
     <section class="profile">
       <Header title="个人中心">
       </Header>
-      <section class="profile-number" @click="$router.push('/login')">
+      <section class="profile-number" @click="$router.push(user._id?'/userdetail':'/login')">
         <a href="javascript:" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-person"></i>
           </div>
           <div class="user-info">
-            <p class="user-info-top">登录/注册</p>
-            <p>
+            <p class="user-info-top" v-if="!user.phone">{{user.name?user.name:'登录注册'}}</p>
+            <p v-show="!user.name">
               <span class="user-icon">
                 <i class="iconfont icon-shouji icon-mobile"></i>
               </span>
-              <span class="icon-mobile-number">暂无绑定手机号</span>
+              <span class="icon-mobile-number">{{user.phone?user.phone:'暂无绑定手机号'}}</span>
             </p>
           </div>
           <span class="arrow">
@@ -90,12 +90,30 @@
           </div>
         </a>
       </section>
+      <section class="profile_my_order border-1px">
+        <!-- 服务中心 -->
+        <button style="width:100%;height:40px;border:none;backgroundColor:red" @click="logOut">推出登录</button>
+      </section>
     </section>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {mapState} from 'vuex'
+import {MessageBox} from 'mint-ui'
  export default {
+   computed: {
+     ...mapState(['user'])
+   },
+   methods: {
+     logOut () {
+       MessageBox.confirm('确定推出吗').then(() =>{
+         this.$store.dispatch('logout')
+       },() =>{
+         
+       })
+     }
+   }
 }
 </script>
 
