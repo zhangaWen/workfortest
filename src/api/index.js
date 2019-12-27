@@ -40,3 +40,19 @@ export const reqSendCode = (phone) => ajax({
     phone
   }
 })
+/**
+ * 5：用户名密码登录
+ */
+export const reqPwd = ({name,pwd,captcha}) =>ajax.post( BASE + '/login_pwd',{name,pwd,captcha})
+
+ /**
+  * 6：手机验证码登录
+  */
+ export const reqSmsLogin = ({phone,code}) => ajax({
+   method: "POST",
+   url: BASE + '/login_sms',
+   params:{
+     phone,
+     code
+   }
+ })

@@ -19,7 +19,7 @@
                 </button>
               </section>
               <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="验证码">
+                <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
               </section>
               <section class="login_hint">
                 温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
@@ -29,10 +29,10 @@
             <div :class="{on:!loginWay}">
               <section>
                 <section class="login_message">
-                  <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+                  <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
                 </section>
                 <section class="login_verification">
-                  <input :type="isShowPwd?'text':'password'" maxlength="8" placeholder="密码">
+                  <input :type="isShowPwd?'text':'password'" maxlength="8" placeholder="密码" v-model="pwd">
                   <div class="switch_button" :class="isShowPwd?'on':'off'" @click="isShowPwd=!isShowPwd">
                     <div class="switch_circle" :class="{right:isShowPwd}"></div>
                     <span class="switch_text">
@@ -41,12 +41,12 @@
                   </div>
                 </section>
                 <section class="login_message">
-                  <input type="text" maxlength="11" placeholder="验证码">
+                  <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
                   <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="updateCapture" ref="captcha">
                 </section>
               </section>
             </div>
-            <button class="login_submit">登录</button>
+            <button class="login_submit" @click.prevent="login">登录</button>
           </form>
           <a href="javascript:;" class="about_us">关于我们</a>
         </div>
@@ -59,12 +59,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {reqSendCode} from '../../api'
+import {reqSendCode,reqSmsLogin,reqPwd} from '../../api'
  export default {
    data () {
      return {
-       loginWay: true,//登录方式  true短信登录   false密码登录
-       phone: '',
+       loginWay: false,//登录方式  true短信登录   false密码登录
+       phone: '',//手机号
+       code: '',//短信验证码
+       name: '',//用户名
+       pwd: '',//用户密码
+       captcha: '',//图形验证码
        computeTime: 0,
        isShowPwd: false
      }
@@ -101,6 +105,39 @@ import {reqSendCode} from '../../api'
       */
      updateCapture () {
        this.$refs.captcha.src = 'http://localhost:4000/captcha?time='+Date.now()
+     },
+     /**
+      * 登录后台请求
+      */
+     async login () {
+       const {loginWay,phone,code,name,pwd,captcha} = this
+      //  debugger
+       let result
+       if (loginWay) {
+         //短信登录
+         result = await reqSmsLogin (phone,code)
+         //请求完后停止计时
+         this.computeTime = 0
+       }else{
+         //密码登录
+         result = await reqPwd ({name,pwd,captcha})
+         //如果登录失败更新图形验证码
+         if (result.code===1) {
+           this.updateCapture()
+           this.captcha = ''
+         }
+       }
+
+       //根据请求的结果响应处理
+       if (result.code===0) {
+         const user = result.data
+         //将user保存到state
+         this.$store.dispatch('saveUser',user )
+         //跳转到个人中心
+           this.$router.replace('/profile')
+       }else{
+         alert(result.msg)
+       }
      }
    }
 }
