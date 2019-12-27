@@ -17,7 +17,10 @@ const BASE = '/api'
   */
  export const reqCategorys = () => ajax({
    method: "GET",
-   url: BASE + '/index_category'
+   url: BASE + '/index_category',
+   headers:{
+     needToken: true
+   }
  })
  /**
   * 3:根据经纬度获取商户列表
@@ -28,6 +31,9 @@ const BASE = '/api'
   params:{
     latitude,
     longitude
+  },
+  headers:{
+    needToken: true
   }
 })
 /**

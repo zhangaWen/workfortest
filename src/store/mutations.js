@@ -1,4 +1,4 @@
-import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER} from './mutation_types'
+import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,RESET_TOKEN} from './mutation_types'
 export default {
   [RECEIVE_ADDRESS] (state,address) {
     state.address = address
@@ -12,7 +12,13 @@ export default {
   [RECEIVE_USER] (state,{user}) {
     state.user = user
   },
+  [RECEIVE_TOKEN] (state,{token}) {
+    state.token = token
+  },
   [RESET_USER] (state) {
     state.user = {}
+  },
+  [RESET_TOKEN] (state) {
+    state.token = ''
   }
 }
