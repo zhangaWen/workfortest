@@ -33,7 +33,7 @@
                     <span class="old" v-if="food.olfPrice">￥{{food.olfPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -121,7 +121,7 @@ import BScroll from 'better-scroll'
        })
        //更新tops数据
        this.tops = tops
-       console.log(tops)
+      //  console.log(tops)
      },
      //dianji
      selectItem (index) {
