@@ -62,3 +62,16 @@ export const reqPwd = ({name,pwd,captcha}) =>ajax.post( BASE + '/login_pwd',{nam
      code
    }
  })
+
+ /**
+  * 获取商家信息
+  */
+ export const reqInfo = () => ajax.get('/info')
+ /**
+  * 获取商家评价数组
+  */
+ export const reqRatings = () => ajax.get('/ratings')
+ /**
+  * 获取商家商品数组
+  */
+ export const reqGoods = () => ajax.get('/goods')

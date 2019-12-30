@@ -1,4 +1,5 @@
-import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,RESET_TOKEN} from './mutation_types'
+import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,
+  RESET_TOKEN,RECEIVE_GOODS,RECEIVE_INFO,RECEIVE_RATINGS} from './mutation_types'
 export default {
   [RECEIVE_ADDRESS] (state,address) {
     state.address = address
@@ -20,5 +21,19 @@ export default {
   },
   [RESET_TOKEN] (state) {
     state.token = ''
-  }
+  },
+
+
+  //商品详细信息
+  [RECEIVE_INFO](state, {info}) {
+    state.info = info
+  },
+  
+  [RECEIVE_RATINGS](state, {ratings}) {
+    state.ratings = ratings
+  },
+  
+  [RECEIVE_GOODS](state, {goods}) {
+    state.goods = goods
+  },
 }
