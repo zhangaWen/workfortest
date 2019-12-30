@@ -11,19 +11,31 @@ import Info from 'pages/Shop/info/info.vue'
 export default [
   {
     path: '/msite',
-    component: Msite
+    component: Msite,
+    meta: {
+      ShowFooter: true
+    },
   },
   {
     path: '/search',
-    component: Search
+    component: Search,
+    meta: {
+      ShowFooter: true
+    },
   },
   {
     path: '/order',
-    component: Order
+    component: Order,
+    meta: {
+      ShowFooter: true
+    },
   },
   {
     path: '/profile',
-    component: Profile
+    component: Profile,
+    meta: {
+      ShowFooter: true
+    },
   },
   {
     path: '/login',
@@ -32,7 +44,6 @@ export default [
   {
     path: '/shop',
     component: Shop,
-    
     children:[
       {
         path: '/shop/goods',
