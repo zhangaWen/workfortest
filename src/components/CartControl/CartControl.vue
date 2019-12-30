@@ -10,6 +10,16 @@
  export default {
    props:{
      food: Object
+   },
+   methods: {
+     updateFoodCount (isAdd) {
+       if (isAdd) {
+         console.log(0)
+         this.$store.dispatch('updateFoodCount',{isAdd,food:this.food})
+       }else{
+         console.log(1)
+       }
+     }
    }
 }
 </script>

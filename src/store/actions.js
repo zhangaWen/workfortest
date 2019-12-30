@@ -3,7 +3,8 @@
  */
 import {reqAddress,reqCategorys,reqShops,reqGoods,reqInfo,reqRatings} from '../api'
 import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,
-  RESET_TOKEN,RECEIVE_RATINGS,RECEIVE_INFO,RECEIVE_GOODS} from './mutation_types'
+  RESET_TOKEN,RECEIVE_RATINGS,RECEIVE_INFO,RECEIVE_GOODS,ADD_FOOD_COUNT,REDUCE_FOOD_COUNT
+} from './mutation_types'
 export default {
   /**
    * 1:获取当前地址信息的异步action
@@ -98,6 +99,18 @@ export default {
       typeof cb === 'function' && cb()
     }
   },
+
+
+
+  //对购物操作的加减
+  updateFoodCount ({commit},{isAdd,food}) {
+    if (isAdd) {
+      commit(ADD_FOOD_COUNT,{food})
+      console.log(food.count)
+    }else{
+      commit(REDUCE_FOOD_COUNT,{food})
+    }
+  }
 }
 
 
