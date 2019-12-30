@@ -4,6 +4,9 @@ import Order from 'pages/Order/Order.vue'
 import Profile from 'pages/Profile/Profile.vue'
 import Login from 'pages/Login/Login.vue'
 import Shop from 'pages/Shop/shop.vue'
+import Goods from 'pages/Shop/goods/goods.vue'
+import Rating from 'pages/Shop/rating/rating.vue'
+import Info from 'pages/Shop/info/info.vue'
 
 export default [
   {
@@ -28,7 +31,25 @@ export default [
   },
   {
     path: '/shop',
-    component: Shop
+    component: Shop,
+    children:[
+      {
+        path: '/shop/goods',
+        component:Goods
+      },
+      {
+        path: '/shop/rating',
+        component:Rating
+      },
+      {
+        path: '/shop/info',
+        component:Info
+      },
+      {
+        path: '',
+        redirect:'/shop/goods'
+      }
+    ]
   },
   {
     path: '/',
