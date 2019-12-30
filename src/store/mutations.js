@@ -47,12 +47,18 @@ import Vue from 'vue'
       //给food添加一个新的属性，属性名是count ===>   没有数据绑定
       // food.count = 1
       Vue.set(food,'count',1)
+      //添加到购物车
+      state.cardFood.push(food)
     }
     
   },
   [REDUCE_FOOD_COUNT] (state,{food}) {
     if(food.count) {
       food.count--
+      //一旦数量减为0从购物车中删除
+      if (food.count===0) {
+        state.cardFood.splice(state.cardFood.indexOf(food),1)
+      }
     }
   }
 }

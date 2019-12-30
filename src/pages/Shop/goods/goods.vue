@@ -41,6 +41,7 @@
           </li>
         </ul>
       </div>
+      <ShopCart/>
     </div>
   </div>
 </template>
@@ -48,7 +49,11 @@
 <script type="text/ecmascript-6">
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
+import ShopCart from '../../../components/ShopCart/ShopCart'
  export default {
+   components: {
+     ShopCart
+   },
    data () {
      return {
        scrollY: 0,

@@ -17,7 +17,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import ShopHeader from '../../components/ShopHeader/ShopHeader'
+import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
+
  export default {
    components: {
      ShopHeader
