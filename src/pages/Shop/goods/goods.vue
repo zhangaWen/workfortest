@@ -2,7 +2,7 @@
   <div>
     <div class="goods">
       <div class="menu-wrapper" ref="left">
-        <ul>
+        <ul ref="leftUl">
           <!-- current currentIndex  scrollY右侧滑动的坐标-->
           <li class="menu-item" :class="{current: currentIndex===index}" v-for="(good, index) in goods" 
           :key="index" @click="selectItem(index)">
@@ -68,7 +68,17 @@ import BScroll from 'better-scroll'
       */
      currentIndex () {
        const { scrollY,tops} = this
-       return tops.findIndex((top,index) => scrollY>=top && scrollY<tops[index+1])
+       const that = this
+       const index = tops.findIndex((top,index) => scrollY>=top && scrollY<tops[index+1])
+      //  return tops.findIndex((top,index) => scrollY>=top && scrollY<tops[index+1])
+      //先比较发现不同再保存
+      if (index != this.index && this.leftScroll) {
+        that.index = index
+        //让左侧列表滑动到index对应的li
+        const li = this.$refs.leftUl.children[index]
+        this.leftScroll.scrollToElement(li,500)
+      }
+      return index
      }
    },
    watch: {
