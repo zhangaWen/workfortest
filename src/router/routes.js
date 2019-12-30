@@ -32,6 +32,7 @@ export default [
   {
     path: '/shop',
     component: Shop,
+    
     children:[
       {
         path: '/shop/goods',
