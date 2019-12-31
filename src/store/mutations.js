@@ -1,5 +1,5 @@
 import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,
-  RESET_TOKEN,RECEIVE_GOODS,RECEIVE_INFO,RECEIVE_RATINGS,ADD_FOOD_COUNT,REDUCE_FOOD_COUNT} from './mutation_types'
+  RESET_TOKEN,RECEIVE_GOODS,RECEIVE_INFO,RECEIVE_RATINGS,ADD_FOOD_COUNT,REDUCE_FOOD_COUNT,CLEAR_CART} from './mutation_types'
 import Vue from 'vue'
   export default {
   [RECEIVE_ADDRESS] (state,address) {
@@ -60,5 +60,15 @@ import Vue from 'vue'
         state.cardFood.splice(state.cardFood.indexOf(food),1)
       }
     }
+  },
+  //清空购物车
+  [CLEAR_CART] (state) {
+    //将购物车中所有food的count属性移除
+    state.cardFood.forEach(food => {
+      // delete food.count----没有数据绑定
+      food.count = 0
+    }),
+    //清空购物车数组
+    state.cardFood = []
   }
 }

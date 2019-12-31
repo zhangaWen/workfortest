@@ -3,7 +3,7 @@
  */
 import {reqAddress,reqCategorys,reqShops,reqGoods,reqInfo,reqRatings} from '../api'
 import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS,RECEIVE_USER,RESET_USER,RECEIVE_TOKEN,
-  RESET_TOKEN,RECEIVE_RATINGS,RECEIVE_INFO,RECEIVE_GOODS,ADD_FOOD_COUNT,REDUCE_FOOD_COUNT
+  RESET_TOKEN,RECEIVE_RATINGS,RECEIVE_INFO,RECEIVE_GOODS,ADD_FOOD_COUNT,REDUCE_FOOD_COUNT,CLEAR_CART
 } from './mutation_types'
 export default {
   /**
@@ -110,6 +110,10 @@ export default {
     }else{
       commit(REDUCE_FOOD_COUNT,{food})
     }
+  },
+  //清空购物车
+  clearCart ({commit}) {
+    commit(CLEAR_CART)
   }
 }
 

@@ -22,7 +22,7 @@
         <div class="shopcart-list" v-show="listShow" >
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" @click="clearCart">清空</span>
           </div>
           <div class="list-content" ref="foods">
             <ul>
@@ -46,6 +46,8 @@
 
 <script type="text/ecmascript-6">
 import {mapState,mapGetters} from 'vuex'
+import BScroll from 'better-scroll'
+import {MessageBox} from 'mint-ui'
  export default {
    data () {
      return {
@@ -73,13 +75,33 @@ import {mapState,mapGetters} from 'vuex'
      },
      //列表是否显示
      listShow () {
+       const that = this
        if (this.totalCount===0) {
-         const that = this
          that.isShow = false
          return false
-       }else{
-         return this.isShow
        }
+       //如果列表显示创建滚动对象
+       if(this.isShow) {
+         this.$nextTick(()=>{
+           /**
+            * 单例对象：单一的实例对象
+            * 1：创建对象前:判断对象不存在才创建
+            *   
+            * 2：创建对象后：保存创建后的对象
+            */
+           if(!this.scroll){
+             //可能此时不需要滑动
+             that.scroll = new BScroll(this.$refs.foods,{
+               click: true
+             })
+           }else{
+             //让滚动条从新计算
+             that.scroll.refresh()
+           }           
+         })
+       }
+         return this.isShow
+       
      }
    },
    methods: {
@@ -88,6 +110,13 @@ import {mapState,mapGetters} from 'vuex'
 
          this.isShow = !this.isShow
        }
+     },
+     clearCart () {
+       MessageBox.confirm('确定清楚吗').then(()=>{
+         this.$store.dispatch('clearCart')
+       },()=>{
+
+       })
      }
    }
 }
