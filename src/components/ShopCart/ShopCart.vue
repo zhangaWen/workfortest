@@ -2,10 +2,10 @@
   <div>
     <div class="shopcart">
       <div class="content">
-        <div class="content-left">
+        <div class="content-left" @click="toggleShow">
           <div class="logo-wrapper">
             <div class="logo" :class="{highlight:totalCount>0}">
-              <i class="iconfont icon-shopping_cart" :class="{highlight:totalCount>0}"></i>
+              <i class="iconfont icon-shopping_cart" :class="{highlight:totalCount>0}">车</i>
             </div>
             <div class="num" v-if="totalCount>0">{{totalCount}}</div>
           </div>
@@ -18,35 +18,40 @@
           </div>
         </div>
       </div>
-      <div class="shopcart-list" style="display: none;">
-        <div class="list-header">
-          <h1 class="title">购物车</h1>
-          <span class="empty">清空</span>
-        </div>
-        <div class="list-content">
-          <ul>
-            <li class="food">
-              <span class="name">红枣山药糙米粥</span>
-              <div class="price"><span>￥10</span></div>
-              <div class="cartcontrol-wrapper">
-                <div class="cartcontrol">
-                  <div class="iconfont icon-remove_circle_outline"></div>
-                  <div class="cart-count">1</div>
-                  <div class="iconfont icon-add_circle"></div>
+      <transition name="move">
+        <div class="shopcart-list" v-show="isShow">
+          <div class="list-header">
+            <h1 class="title">购物车</h1>
+            <span class="empty">清空</span>
+          </div>
+          <div class="list-content">
+            <ul>
+              <li class="food" v-for="(food, index) in cardFood" :key="index">
+                <span class="name">{{food.name}}</span>
+                <div class="price"><span>￥{{food.price}}</span></div>
+                <div class="cartcontrol-wrapper">
+                  <CartControl :food="food"/>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
-    <div class="list-mask" style="display: none;"></div>
+    <transition name="fade">
+      <div class="list-mask" v-show="isShow" @click="toggleShow"></div>
+    </transition>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import {mapState,mapGetters} from 'vuex'
  export default {
+   data () {
+     return {
+       isShow: false
+     }
+   },
    computed: {
      ...mapState(['cardFood','info']),
      ...mapGetters(['totalCount','totalPrice']),
@@ -65,6 +70,11 @@ import {mapState,mapGetters} from 'vuex'
        }else{
          return '去结算'
        }
+     }
+   },
+   methods: {
+     toggleShow () {
+       this.isShow = !this.isShow
      }
    }
 }
@@ -163,6 +173,12 @@ import {mapState,mapGetters} from 'vuex'
       top: 0
       z-index: -1
       width: 100%
+      transform translateY(-100%)
+      &.move-enter-active,&.move-leave-active
+        transition all .5s
+      &.move-enter,&.move-leave-to
+        opacity 0
+        transform translateY(0)
       .list-header
         height: 40px
         line-height: 40px

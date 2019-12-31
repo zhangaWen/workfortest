@@ -17,15 +17,13 @@ export default {
 
   //总数量
   totalCount (state) {
-    console.log(state.cardFood)
-    return state.cardFood.reduce((pre,food)=>{
-      pre+food.count
-    },0)
+    // console.log(state.cardFood)
+    return state.cardFood.reduce((pre,food)=> pre+food.count,0)
   },
   //总价格
   totalPrice (state) {
-    return state.cardFood.reduce((pre,food)=>{
+    return state.cardFood.reduce((pre,food)=>
       pre+food.count*food.price
-    },0)
+    ,0)
   }
 }

@@ -53,7 +53,7 @@ import Vue from 'vue'
     
   },
   [REDUCE_FOOD_COUNT] (state,{food}) {
-    if(food.count) {
+    if(food.count>0) {
       food.count--
       //一旦数量减为0从购物车中删除
       if (food.count===0) {

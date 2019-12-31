@@ -106,7 +106,7 @@ export default {
   updateFoodCount ({commit},{isAdd,food}) {
     if (isAdd) {
       commit(ADD_FOOD_COUNT,{food})
-      console.log(food.count)
+      // console.log(food.count)
     }else{
       commit(REDUCE_FOOD_COUNT,{food})
     }

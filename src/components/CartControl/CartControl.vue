@@ -15,8 +15,8 @@
    },
    methods: {
      updateFoodCount (isAdd) {
+       console.log(this.food)
        if (isAdd) {
-         console.log(0)
          this.$store.dispatch('updateFoodCount',{isAdd,food:this.food})
        }else{
          this.$store.dispatch('updateFoodCount',{isAdd,food:this.food})
