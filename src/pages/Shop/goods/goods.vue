@@ -17,7 +17,8 @@
           <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="food in good.foods" :key="food.name">
+              <li class="food-item bottom-border-1px" v-for="food in good.foods" 
+                :key="food.name" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57"
                       :src="food.icon">
@@ -43,21 +44,25 @@
       </div>
       <ShopCart/>
     </div>
+    <Food ref="food" :food="food"/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
-import ShopCart from '../../../components/ShopCart/ShopCart'
+import ShopCart from 'components/ShopCart/ShopCart'
+import Food from 'components/Food/food'
  export default {
    components: {
-     ShopCart
+     ShopCart,
+     Food
    },
    data () {
      return {
        scrollY: 0,
        tops:[],//右侧所有li的top组成的数组，在列表显示之后统计一次即可
+       food: {},//需要显示的当前food
      }
    },
    mounted () {
@@ -135,6 +140,14 @@ import ShopCart from '../../../components/ShopCart/ShopCart'
        this.scrollY = top
        //让右侧列表滑动到对应位置
        this.rightScroll.scrollTo(0,-top,500)
+     },
+
+
+     //食物组件的
+     showFood (food) {
+       this.food = food
+       //显示food的组件界面
+       this.$refs.food.toggleShow()
      }
    }
 }

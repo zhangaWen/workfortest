@@ -1,12 +1,21 @@
-import Msite from 'pages/Msite/Msite.vue'
-import Search from 'pages/Search/Search.vue'
-import Order from 'pages/Order/Order.vue'
-import Profile from 'pages/Profile/Profile.vue'
-import Login from 'pages/Login/Login.vue'
-import Shop from 'pages/Shop/shop.vue'
-import Goods from 'pages/Shop/goods/goods.vue'
-import Rating from 'pages/Shop/rating/rating.vue'
-import Info from 'pages/Shop/info/info.vue'
+// import Msite from 'pages/Msite/Msite.vue'
+// import Search from 'pages/Search/Search.vue'
+// import Order from 'pages/Order/Order.vue'
+// import Profile from 'pages/Profile/Profile.vue'
+// import Login from 'pages/Login/Login.vue'
+// import Shop from 'pages/Shop/shop.vue'
+// import Goods from 'pages/Shop/goods/goods.vue'
+// import Rating from 'pages/Shop/rating/rating.vue'
+// import Info from 'pages/Shop/info/info.vue'
+const Msite = () => import ('pages/Msite/Msite.vue')
+const Search = () => import ('pages/Search/Search.vue')
+const Order = () => import ('pages/Order/Order.vue')
+const Profile = () => import ('pages/Profile/Profile.vue')
+const Login = () => import ('pages/Login/Login.vue')
+const Shop = () => import ('pages/Shop/shop.vue')
+const Goods = () => import ('pages/Shop/goods/goods.vue')
+const Rating = () => import ('pages/Shop/rating/rating.vue')
+const Info = () => import ('pages/Shop/info/info.vue')
 
 export default [
   {
