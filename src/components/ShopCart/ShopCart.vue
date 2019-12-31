@@ -19,12 +19,12 @@
         </div>
       </div>
       <transition name="move">
-        <div class="shopcart-list" v-show="isShow">
+        <div class="shopcart-list" v-show="listShow" >
           <div class="list-header">
             <h1 class="title">购物车</h1>
             <span class="empty">清空</span>
           </div>
-          <div class="list-content">
+          <div class="list-content" ref="foods">
             <ul>
               <li class="food" v-for="(food, index) in cardFood" :key="index">
                 <span class="name">{{food.name}}</span>
@@ -39,7 +39,7 @@
       </transition>
     </div>
     <transition name="fade">
-      <div class="list-mask" v-show="isShow" @click="toggleShow"></div>
+      <div class="list-mask" v-show="listShow" @click="toggleShow"></div>
     </transition>
   </div>
 </template>
@@ -70,11 +70,24 @@ import {mapState,mapGetters} from 'vuex'
        }else{
          return '去结算'
        }
+     },
+     //列表是否显示
+     listShow () {
+       if (this.totalCount===0) {
+         const that = this
+         that.isShow = false
+         return false
+       }else{
+         return this.isShow
+       }
      }
    },
    methods: {
      toggleShow () {
-       this.isShow = !this.isShow
+       if(this.totalCount>0) {
+
+         this.isShow = !this.isShow
+       }
      }
    }
 }
